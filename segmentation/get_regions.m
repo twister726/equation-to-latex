@@ -50,4 +50,9 @@ for i = 1:size(temp_regions,1)
     end
 end
 
+for i = 1:size(regions, 2)
+    r = regions{i};
+    regions{i} = autocrop(r);
+end
+
 end
