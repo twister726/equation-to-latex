@@ -6,8 +6,10 @@ imt = threshold(im);
 
 regions = get_regions(imt, 9);
 
+subplot(3,3,1);
+imshow(im);
 for i = 1:size(regions,2)
-    subplot(5,4,i);
+    subplot(3,3,i+1);
     imshow(regions{i});
 end
 
