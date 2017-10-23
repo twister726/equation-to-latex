@@ -1,16 +1,15 @@
 # import the necessary packages
 import numpy as np
-import argparse
+import sys
 import cv2
+import os
 
 # construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="path to input image file")
-args = vars(ap.parse_args())
+filename = os.path.abspath(sys.argv[1])
+outpath = os.path.abspath(sys.argv[2])
 
 # load the image from disk
-image = cv2.imread(args["image"])
+image = cv2.imread(filename)
 
 # convert the image to grayscale and flip the foreground
 # and background to ensure foreground is now "white" and
@@ -56,4 +55,4 @@ rotated = cv2.warpAffine(image, M, (w, h),
 # show the output image
 print("[INFO] angle: {:.3f}".format(angle))
 # cv2.imshow("Input", image)
-cv2.imwrite(args["image"]+"_rotated.jpg", rotated)
+cv2.imwrite(outpath, rotated)
