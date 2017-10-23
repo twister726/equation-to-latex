@@ -1,6 +1,6 @@
 # Steps
 - Thresholding
-- Binary erosion
+- Binary dilation
 - Horizontal split
 - Vertical split
 - Recurse

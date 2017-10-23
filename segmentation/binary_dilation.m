@@ -1,5 +1,4 @@
-function [ imout ] = binary_erosion( im, W )
-%BINARY_EROSION Summary of this function goes here
+function [ imout ] = binary_dilation( im, W )
 %   W = size of filter (must be odd)
 
 Wm = floor(W / 2);
@@ -14,4 +13,3 @@ for i = 1:size(im, 1)
 end
 
 end
-

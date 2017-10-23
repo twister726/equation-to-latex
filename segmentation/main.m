@@ -17,8 +17,8 @@ for i = 1:size(regions,2)
     imwrite(regions{i}, fname);
 end
 
-% imb = binary_erosion(imt, 9);
-% subplot(2,2,3); imshow(imb); title('After Binary erosion');
+% imb = binary_dilation(imt, 9);
+% subplot(2,2,3); imshow(imb); title('After Binary dilation');
 %
 % imbb = imb;
 %

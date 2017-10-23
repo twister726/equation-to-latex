@@ -1,13 +1,13 @@
 function [ regions ] = get_regions( im, fsize )
-%GET_REGIONS Takes thresholded image and return regions of the image in a 
+%GET_REGIONS Takes thresholded image and return regions of the image in a
 % n x 4 matrix, each row
 %containing x1 x2 y1 y2. Regions have a single character in them to be
 %recognized.
-% Args - image, binary erosion filter size
+% Args - image, binary dilation filter size
 
-MIN_EROSION_SIZE = 3;
+MIN_DILATION_SIZE = 3;
 
-imb = binary_erosion(im, fsize);
+imb = binary_dilation(im, fsize);
 im_seg = imb;
 
 br = blank_rowcol(imb, true); % rows
@@ -24,7 +24,7 @@ for row_idx = 1:size(br,1)
     else
         next_row = br(row_idx + 1);
     end
-    
+
     for col_idx = 1:size(bc,1)
         temp_col = bc(col_idx);
         next_col = 0;
@@ -42,7 +42,7 @@ end
 
 for i = 1:size(temp_regions,1)
     r = temp_regions(i,:);
-    if fsize == MIN_EROSION_SIZE
+    if fsize == MIN_DILATION_SIZE
         regions{end+1} = im(r(1):r(2), r(3):r(4));
     else
         new_regions = get_regions(im(r(1):r(2), r(3):r(4)), fsize - 2);
