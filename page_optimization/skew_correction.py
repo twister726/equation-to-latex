@@ -3,6 +3,8 @@ import numpy as np
 import sys
 import cv2
 import os
+from scipy.spatial import ConvexHull
+from min_bounding_rect import minBoundingRect
 
 # construct the argument parse and parse the arguments
 filename = os.path.abspath(sys.argv[1])
@@ -27,7 +29,14 @@ thresh = cv2.threshold(gray, 0, 255,
 # compute a rotated bounding box that contains all
 # coordinates
 coords = np.column_stack(np.where(thresh > 0))
-angle = cv2.minAreaRect(coords)[-1]
+hull = ConvexHull(coords)
+hull_points = hull.points[hull.vertices]
+# print hull_points
+# print hull_points[0], hull_points[-1]
+angle = minBoundingRect(hull_points)[0]
+angle =  np.degrees(angle)
+# INBUILT
+# angle = cv2.minAreaRect(coords)[-1]
 
 # the `cv2.minAreaRect` function returns values in the
 # range [-90, 0); as the rectangle rotates clockwise the
@@ -41,7 +50,9 @@ if angle < -45:
 else:
 	angle = -angle
 
-	# rotate the image to deskew it
+# NOT INBUILT
+angle = 90 + angle # Only when not using inbuilt
+# rotate the image to deskew it
 (h, w) = image.shape[:2]
 center = (w // 2, h // 2)
 M = cv2.getRotationMatrix2D(center, angle, 1.0)
