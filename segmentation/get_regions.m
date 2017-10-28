@@ -5,7 +5,7 @@ function [ regions ] = get_regions( im, fsize )
 %recognized.
 % Args - image, binary dilation filter size
 
-MIN_DILATION_SIZE = 3;
+MIN_DILATION_SIZE = 1;
 
 imb = binary_dilation(im, fsize);
 im_seg = imb;

@@ -4,14 +4,16 @@ function [ br ] = blank_rowcol( im, alongRows )
 
 if alongRows
     dim = 2;
+    threshold = 0.05;
 else
     dim = 1;
+    threshold = 0.1;
 end
 
 r = sum(im, dim);
 r = r(:);
 rmax = max(r);
-brl = r > 0.02*rmax;
+brl = r > threshold*rmax;
 
 last = 0;
 br = [];
