@@ -20,18 +20,20 @@
 %   Contributed by Jan Motl (jan@motl.us)
 %   $Revision: 1.1 $  $Date: 2015/04/19 17:03:01 $
 
-function output = remove_shadow(image, varargin)
+function output = remove_shadow(inpath, outpath)
 % Initialization
-numvarargs = length(varargin);      % only want 3 optional inputs at most
-if numvarargs > 3
-    error('myfuns:somefun2Alt:TooManyInputs', ...
-     'Possible parameters are: (image, [m n], T, padding)');
-end
+% numvarargs = length(varargin);      % only want 3 optional inputs at most
+% if numvarargs > 3
+%     error('myfuns:somefun2Alt:TooManyInputs', ...
+%      'Possible parameters are: (image, [m n], T, padding)');
+% end
  
 optargs = {[15 15] 10 'replicate'}; % set defaults
  
-optargs(1:numvarargs) = varargin;   % use memorable variable names
+% optargs(1:numvarargs) = varargin;   % use memorable variable names
 [window, T, padding] = optargs{:};
+
+image = imread(inpath);
 
 
 % Convert to double
@@ -47,3 +49,4 @@ output = true(size(image));
 % is below (100-T)% of the average neighbourhood brightness
 output(image <= mean*(1-T/100)) = 0;
 
+imwrite(output, outpath);
