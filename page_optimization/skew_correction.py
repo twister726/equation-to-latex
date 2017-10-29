@@ -51,8 +51,10 @@ else:
 	angle = -angle
 
 # NOT INBUILT
-angle = 90 + angle # Only when not using inbuilt
+# angle = 90 + angle # Only when not using inbuilt
 # rotate the image to deskew it
+(h, w) = image.shape[:2]
+image = cv2.copyMakeBorder(image, h, h, w, w, cv2.BORDER_CONSTANT, value=[255, 255, 255])
 (h, w) = image.shape[:2]
 center = (w // 2, h // 2)
 M = cv2.getRotationMatrix2D(center, angle, 1.0)
