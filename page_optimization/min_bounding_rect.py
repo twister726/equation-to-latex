@@ -95,11 +95,14 @@ def minBoundingRect(hull_points_2d):
         width = max_x - min_x
         height = max_y - min_y
         area = width*height
+
+        lenu = width*width + height*height
         #print "Potential bounding box ", i, ":  width: ", width, " height: ", height, "  area: ", area
 
         # Store the smallest rect found first (a simple convex hull might have 2 answers with same area)
         if (area < min_bbox[1]):
             min_bbox = ( edge_angles[i], area, width, height, min_x, max_x, min_y, max_y )
+
         # Bypass, return the last found rect
         #min_bbox = ( edge_angles[i], area, width, height, min_x, max_x, min_y, max_y )
 
@@ -133,6 +136,17 @@ def minBoundingRect(hull_points_2d):
     corner_points[3] = dot( [ max_x, max_y ], R )
     #print "Bounding box corner points: \n", corner_points
 
+    angumangu, angumangumaxlenu = 95, -1
+    for i in range(4):
+        pt1 = corner_points[i]
+        pt2 = corner_points[(i+1) % 4]
+        ang = math.atan2(pt2[1] - pt1[1], pt2[0] - pt1[0])
+        lenu = (pt2[1] - pt1[1]) ** 2 + (pt2[0] - pt1[0])**2
+        if (lenu > angumangumaxlenu):
+            angumangumaxlenu = lenu
+            angumangu = ang
+
+
     #print "Angle of rotation: ", angle, "rad  ", angle * (180/math.pi), "deg"
 
-    return (angle, min_bbox[1], min_bbox[2], min_bbox[3], center_point, corner_points) # rot_angle, area, width, height, center_point, corner_points
+    return (angumangu, min_bbox[1], min_bbox[2], min_bbox[3], center_point, corner_points) # rot_angle, area, width, height, center_point, corner_points

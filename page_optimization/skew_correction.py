@@ -51,7 +51,9 @@ else:
 	angle = -angle
 
 # NOT INBUILT
-# angle = 90 + angle # Only when not using inbuilt
+angle = 90 + angle # Only when not using inbuilt
+if angle > 90:
+	angle -= 90
 # rotate the image to deskew it
 (h, w) = image.shape[:2]
 image = cv2.copyMakeBorder(image, h, h, w, w, cv2.BORDER_CONSTANT, value=[255, 255, 255])
