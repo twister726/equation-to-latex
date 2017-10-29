@@ -6,7 +6,11 @@ mkdir output
 fname="processing.png"
 convert "$1" $fname
 
-python page_optimization/old/shadow_removal.py "$fname" "output/thresholded_$fname"
+cd page_optimization
+mkdir ../output/segmented
+matlab -nodesktop -nosplash -r "remove_shadow('../$fname', '../output/thresholded_$fname'); exit"
+cd ..
+
 python page_optimization/skew_correction.py "output/thresholded_$fname" "output/rotated_$fname"
 
 cd segmentation
